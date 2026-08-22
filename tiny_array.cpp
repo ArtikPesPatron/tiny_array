@@ -2,40 +2,45 @@
 
 #include <cassert>
 
-void TinyArray::init(std::size_t initial_capacity) {
-    data = new long long[initial_capacity];
-    size = 0;
-    capacity = initial_capacity;
+TinyArray::TinyArray(std::size_t initial_capacity) {
+    data_ = new long long[initial_capacity];
+    size_ = 0;
+    capacity_ = initial_capacity;
 }
 
-void TinyArray::destroy() {
-    delete[] data;
-    data = nullptr;
-    size = 0;
-    capacity = 0;
+TinyArray::~TinyArray() {
+    delete[] data_;
 }
 
 long long TinyArray::get(std::size_t index) const {
-    assert(index < size);
-    return data[index];
+    assert(index < size_);
+    return data_[index];
 }
 
 void TinyArray::push_back(long long value) {
-    if (size == capacity) {
+    if (size_ == capacity_) {
         std::size_t new_capacity;
-        if (capacity == 0) {
+        if (capacity_ == 0) {
             new_capacity = 1;
         } else {
-            new_capacity = capacity * 2;
+            new_capacity = capacity_ * 2;
         }
         long long* new_data = new long long[new_capacity];
-        for (std::size_t i = 0; i < size; i++) {
-            new_data[i] = data[i];
+        for (std::size_t i = 0; i < size_; i++) {
+            new_data[i] = data_[i];
         }
-        delete[] data;
-        data = new_data;
-        capacity = new_capacity;
+        delete[] data_;
+        data_ = new_data;
+        capacity_ = new_capacity;
     }
-    data[size] = value;
-    size++;
+    data_[size_] = value;
+    size_++;
+}
+
+std::size_t TinyArray::size() const {
+    return size_;
+}
+
+std::size_t TinyArray::capacity() const {
+    return capacity_;
 }
