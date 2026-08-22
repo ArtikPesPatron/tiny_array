@@ -10,11 +10,13 @@ int main() {
     if (!(std::cin >> n) || n < 0) {
         return 0;
     }
-    TinyArray t(n);
+    TinyArray t(static_cast<std::size_t>(n));
 
     for (long long i = 0; i < n; i++) {
         long long tmp;
-        std::cin >> tmp;
+        if (!(std::cin >> tmp)) {
+            return 0;
+        }
         t.push_back(tmp);
     }
 
@@ -22,6 +24,6 @@ int main() {
         std::cout << t.get(i) << ' ';
     }
 
-    std::cout << std::endl;
+    std::cout << '\n';
     return 0;
 }
