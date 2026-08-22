@@ -6,12 +6,11 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    TinyArray t;
     long long n;
     if (!(std::cin >> n) || n < 0) {
         return 0;
     }
-    t.init(static_cast<std::size_t>(n));
+    TinyArray t(n);
 
     for (long long i = 0; i < n; i++) {
         long long tmp;
@@ -24,6 +23,5 @@ int main() {
     }
 
     std::cout << std::endl;
-    t.destroy();
     return 0;
 }
