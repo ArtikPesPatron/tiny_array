@@ -10,6 +10,9 @@ public:
     TinyArray(const TinyArray&) = delete;
     TinyArray& operator=(const TinyArray&) = delete;
 
+    TinyArray(TinyArray&& other) noexcept;
+    TinyArray& operator=(TinyArray&& other) noexcept;
+
     void push_back(long long value);
     long long get(std::size_t index) const;
 
