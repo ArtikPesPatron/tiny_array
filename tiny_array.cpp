@@ -2,22 +2,47 @@
 
 #include <cassert>
 
-TinyArray::TinyArray(std::size_t initial_capacity) {
+TinyArray::TinyArray(const std::size_t initial_capacity) {
     data_ = new long long[initial_capacity];
     size_ = 0;
     capacity_ = initial_capacity;
+}
+
+TinyArray::TinyArray(TinyArray&& other) noexcept {
+    data_ = other.data_;
+    size_ = other.size_;
+    capacity_ = other.capacity_;
+
+    other.capacity_ = 0;
+    other.size_ = 0;
+    other.data_ = nullptr;
+}
+
+TinyArray& TinyArray::operator=(TinyArray&& other) noexcept {
+    if (this != &other) {
+        delete[] data_;
+
+        data_ = other.data_;
+        size_ = other.size_;
+        capacity_ = other.capacity_;
+
+        other.data_ = nullptr;
+        other.size_ = 0;
+        other.capacity_ = 0;
+    }
+    return *this;
 }
 
 TinyArray::~TinyArray() {
     delete[] data_;
 }
 
-long long TinyArray::get(std::size_t index) const {
+long long TinyArray::get(const std::size_t index) const {
     assert(index < size_);
     return data_[index];
 }
 
-void TinyArray::push_back(long long value) {
+void TinyArray::push_back(const long long value) {
     if (size_ == capacity_) {
         std::size_t new_capacity;
         if (capacity_ == 0) {
